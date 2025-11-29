@@ -1,0 +1,2 @@
+source D:/ESP_32/Smart_Desk_Light/build/bootloader/gdbinit/symbols
+source D:/ESP_32/Smart_Desk_Light/build/bootloader/gdbinit/connect
