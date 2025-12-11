@@ -39,6 +39,6 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("D:/ESP_32/Smart_Desk_Light/build/esp-idf/esp_system/port/cmake_install.cmake")
+  include("D:/MCU_finalterm_project/Smart_Desk_Light/build/esp-idf/esp_system/port/cmake_install.cmake")
 endif()
 

@@ -18,8 +18,8 @@ end
 
 # Load bootloader symbols
 set confirm off
-    add-symbol-file D:/ESP_32/Smart_Desk_Light/build/bootloader/bootloader.elf
+    add-symbol-file D:/MCU_finalterm_project/Smart_Desk_Light/build/bootloader/bootloader.elf
 set confirm on
 
 # Load application symbols
-file D:/ESP_32/Smart_Desk_Light/build/Smart_Desk_Light.elf
+file D:/MCU_finalterm_project/Smart_Desk_Light/build/Smart_Desk_Light.elf

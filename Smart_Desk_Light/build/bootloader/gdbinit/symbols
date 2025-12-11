@@ -22,4 +22,4 @@ set confirm off
 set confirm on
 
 # Load application symbols
-file D:/ESP_32/Smart_Desk_Light/build/bootloader/bootloader.elf
+file D:/MCU_finalterm_project/Smart_Desk_Light/build/bootloader/bootloader.elf

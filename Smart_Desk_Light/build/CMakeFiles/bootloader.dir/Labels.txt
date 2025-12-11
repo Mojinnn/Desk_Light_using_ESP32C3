@@ -1,13 +1,13 @@
 # Target labels
  bootloader
 # Source files and their labels
-D:/ESP_32/Smart_Desk_Light/build/CMakeFiles/bootloader
-D:/ESP_32/Smart_Desk_Light/build/CMakeFiles/bootloader.rule
-D:/ESP_32/Smart_Desk_Light/build/CMakeFiles/bootloader-complete.rule
-D:/ESP_32/Smart_Desk_Light/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
-D:/ESP_32/Smart_Desk_Light/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
-D:/ESP_32/Smart_Desk_Light/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
-D:/ESP_32/Smart_Desk_Light/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
-D:/ESP_32/Smart_Desk_Light/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
-D:/ESP_32/Smart_Desk_Light/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
-D:/ESP_32/Smart_Desk_Light/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
+D:/MCU_finalterm_project/Smart_Desk_Light/build/CMakeFiles/bootloader
+D:/MCU_finalterm_project/Smart_Desk_Light/build/CMakeFiles/bootloader.rule
+D:/MCU_finalterm_project/Smart_Desk_Light/build/CMakeFiles/bootloader-complete.rule
+D:/MCU_finalterm_project/Smart_Desk_Light/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+D:/MCU_finalterm_project/Smart_Desk_Light/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+D:/MCU_finalterm_project/Smart_Desk_Light/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+D:/MCU_finalterm_project/Smart_Desk_Light/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+D:/MCU_finalterm_project/Smart_Desk_Light/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+D:/MCU_finalterm_project/Smart_Desk_Light/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+D:/MCU_finalterm_project/Smart_Desk_Light/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule

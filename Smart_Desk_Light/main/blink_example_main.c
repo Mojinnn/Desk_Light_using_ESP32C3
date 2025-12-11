@@ -114,6 +114,25 @@ esp_err_t i2c_master_init(void) {
     
     return i2c_driver_install(I2C_MASTER_NUM, conf.mode, 0, 0, 0);
 }
+// ===== ĐẶT THỜI GIAN =====
+esp_err_t ds3231_set_time(rtc_time_t *time) {
+    uint8_t data[8];
+    data[0] = 0x00;
+    data[1] = dec_to_bcd(time->seconds);
+    data[2] = dec_to_bcd(time->minutes);
+    data[3] = dec_to_bcd(time->hours);
+    data[4] = dec_to_bcd(time->day);
+    data[5] = dec_to_bcd(time->date);
+    data[6] = dec_to_bcd(time->month);
+    data[7] = dec_to_bcd(time->year - 2000);
+    
+    esp_err_t err = i2c_master_write_to_device(I2C_MASTER_NUM, DS3231_ADDR,
+                                               data, 8, 1000 / portTICK_PERIOD_MS);
+    if (err != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to set time: %s", esp_err_to_name(err));
+    }
+    return err;
+}
 
 // ===== KHỞI TẠO NÚT NHẤN =====
 void button_init(void) {
@@ -516,7 +535,22 @@ void app_main(void) {
     button_init();
     
     vTaskDelay(pdMS_TO_TICKS(500));
+    //     // ===== ĐẶT THỜI GIAN BAN ĐẦU =====
+    // rtc_time_t init_time = {
+    //     .seconds = 0,
+    //     .minutes = 48,
+    //     .hours = 9,
+    //     .day = 5,
+    //     .date = 12,
+    //     .month = 11,
+    //     .year = 2025
+    // };
     
+    // if (ds3231_set_time(&init_time) == ESP_OK) {
+    //     ESP_LOGI(TAG, "Time set successfully!");
+    // } else {
+    //     ESP_LOGE(TAG, "Failed to set time!");
+    // }
     // Khởi tạo Pomodoro
     pomodoro_reset();
     

@@ -1,4 +1,4 @@
-# Install script for directory: D:/ESP_32/Smart_Desk_Light/main
+# Install script for directory: D:/MCU_finalterm_project/Smart_Desk_Light/main
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

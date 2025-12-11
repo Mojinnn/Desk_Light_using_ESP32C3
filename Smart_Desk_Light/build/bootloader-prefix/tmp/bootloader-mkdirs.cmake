@@ -10,18 +10,18 @@ if(NOT EXISTS "E:/esp_idf/esp/v5.5/esp-idf/components/bootloader/subproject")
   file(MAKE_DIRECTORY "E:/esp_idf/esp/v5.5/esp-idf/components/bootloader/subproject")
 endif()
 file(MAKE_DIRECTORY
-  "D:/ESP_32/Smart_Desk_Light/build/bootloader"
-  "D:/ESP_32/Smart_Desk_Light/build/bootloader-prefix"
-  "D:/ESP_32/Smart_Desk_Light/build/bootloader-prefix/tmp"
-  "D:/ESP_32/Smart_Desk_Light/build/bootloader-prefix/src/bootloader-stamp"
-  "D:/ESP_32/Smart_Desk_Light/build/bootloader-prefix/src"
-  "D:/ESP_32/Smart_Desk_Light/build/bootloader-prefix/src/bootloader-stamp"
+  "D:/MCU_finalterm_project/Smart_Desk_Light/build/bootloader"
+  "D:/MCU_finalterm_project/Smart_Desk_Light/build/bootloader-prefix"
+  "D:/MCU_finalterm_project/Smart_Desk_Light/build/bootloader-prefix/tmp"
+  "D:/MCU_finalterm_project/Smart_Desk_Light/build/bootloader-prefix/src/bootloader-stamp"
+  "D:/MCU_finalterm_project/Smart_Desk_Light/build/bootloader-prefix/src"
+  "D:/MCU_finalterm_project/Smart_Desk_Light/build/bootloader-prefix/src/bootloader-stamp"
 )
 
 set(configSubDirs )
 foreach(subDir IN LISTS configSubDirs)
-    file(MAKE_DIRECTORY "D:/ESP_32/Smart_Desk_Light/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
+    file(MAKE_DIRECTORY "D:/MCU_finalterm_project/Smart_Desk_Light/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
 endforeach()
 if(cfgdir)
-  file(MAKE_DIRECTORY "D:/ESP_32/Smart_Desk_Light/build/bootloader-prefix/src/bootloader-stamp${cfgdir}") # cfgdir has leading slash
+  file(MAKE_DIRECTORY "D:/MCU_finalterm_project/Smart_Desk_Light/build/bootloader-prefix/src/bootloader-stamp${cfgdir}") # cfgdir has leading slash
 endif()

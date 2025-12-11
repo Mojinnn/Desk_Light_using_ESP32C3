@@ -1026,7 +1026,7 @@ rule C_STATIC_LIBRARY_LINKER____idf_main_
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = E:\esp_idf\.espressif\tools\cmake\3.30.2\bin\cmake.exe --regenerate-during-build -SD:\ESP_32\Smart_Desk_Light -BD:\ESP_32\Smart_Desk_Light\build
+  command = E:\esp_idf\.espressif\tools\cmake\3.30.2\bin\cmake.exe --regenerate-during-build -SD:\MCU_finalterm_project\Smart_Desk_Light -BD:\MCU_finalterm_project\Smart_Desk_Light\build
   description = Re-running CMake...
   generator = 1
 

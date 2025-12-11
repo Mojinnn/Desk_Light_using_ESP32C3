@@ -1,4 +1,4 @@
-# Install script for directory: D:/ESP_32/Smart_Desk_Light/components/rtc
+# Install script for directory: D:/MCU_finalterm_project/Smart_Desk_Light/components/rtc
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

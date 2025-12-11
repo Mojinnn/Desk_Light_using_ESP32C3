@@ -1,6 +1,6 @@
 /* Automatically generated file; DO NOT EDIT */
 /* Espressif IoT Development Framework Linker Script */
-/* Generated from: D:\ESP_32\Smart_Desk_Light\build\esp-idf\esp_system\ld\sections.ld.in */
+/* Generated from: D:\MCU_finalterm_project\Smart_Desk_Light\build\esp-idf\esp_system\ld\sections.ld.in */
 
 /*
 

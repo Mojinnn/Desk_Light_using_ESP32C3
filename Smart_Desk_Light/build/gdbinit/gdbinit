@@ -1,2 +1,2 @@
-source D:/ESP_32/Smart_Desk_Light/build/gdbinit/symbols
-source D:/ESP_32/Smart_Desk_Light/build/gdbinit/connect
+source D:/MCU_finalterm_project/Smart_Desk_Light/build/gdbinit/symbols
+source D:/MCU_finalterm_project/Smart_Desk_Light/build/gdbinit/connect
