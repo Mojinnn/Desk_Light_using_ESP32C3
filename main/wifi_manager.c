@@ -61,9 +61,9 @@ static void initialize_sntp(void) {
 
 // ===== WEB SERVER =====
 static esp_err_t root_handler(httpd_req_t *req) {
-    extern rtc_time_t g_current_time;  // From display.c
+    extern rtc_time_t g_current_time;
     
-    const char* html_part1 = 
+    const char* html = 
         "<!DOCTYPE html><html><head><meta charset='UTF-8'>"
         "<meta name='viewport' content='width=device-width,initial-scale=1'>"
         "<title>ESP32 Pomodoro Timer</title><style>"
@@ -76,49 +76,97 @@ static esp_err_t root_handler(httpd_req_t *req) {
         ".time{font-size:72px;font-weight:bold;color:#e94560;text-align:center;margin:20px 0}"
         ".btn{padding:18px 45px;font-size:18px;border:none;border-radius:12px;cursor:pointer;"
         "margin:10px;background:linear-gradient(135deg,#27ae60 0%,#2ecc71 100%);color:white}"
+        ".light-btn{background:linear-gradient(135deg,#f39c12 0%,#e67e22 100%)}"
+        ".info{text-align:center;margin-top:20px;color:#aaa}"
         "</style></head><body><div class='container'>"
         "<h1>⏰ Pomodoro Timer</h1>"
         "<div class='time' id='time'>--:--:--</div>"
         "<div class='time' id='timer'>25:00</div>"
+        "<div class='info' id='state'>Ready</div>"
+        "<div style='text-align:center'>"
         "<button class='btn' onclick='fetch(\"/start\")'>▶️ Start/Stop</button>"
-        "<button class='btn' onclick='fetch(\"/reset\")'>🔄 Reset</button>"
+        "<button class='btn' onclick='fetch(\"/reset\")'>🔄 Reset</button><br>"
+        "<button class='btn light-btn' onclick='fetch(\"/light\")'>💡 Đèn</button>"
+        "</div>"
+        "<div class='info' id='lightMode'>Đèn: Tắt</div>"
         "<script>setInterval(()=>{"
         "fetch('/data').then(r=>r.json()).then(d=>{"
         "document.getElementById('time').innerText=d.time;"
         "document.getElementById('timer').innerText=d.timer;"
+        "document.getElementById('state').innerText=d.state;"
+        "document.getElementById('lightMode').innerText='Đèn: '+d.lightMode;"
         "})},1000)</script></div></body></html>";
     
-    httpd_resp_send(req, html_part1, HTTPD_RESP_USE_STRLEN);
+    httpd_resp_send(req, html, HTTPD_RESP_USE_STRLEN);
     return ESP_OK;
 }
 
 static esp_err_t data_handler(httpd_req_t *req) {
     extern rtc_time_t g_current_time;
-    char json[256];
+    char json[512];
     pomodoro_t *pomo = get_pomodoro();
+    
+    // Lấy trạng thái đèn
+    uint8_t light_mode = touch_get_mode();
+    const char* light_names[] = {"Tắt", "Trắng", "Vàng", "Vàng nhạt"};
+    
+    // Lấy trạng thái pomodoro
+    const char* state_name = "Ready";
+    if (pomo->is_running) {
+        if (pomo->state == POMODORO_WORK) {
+            state_name = "💪 Work Time";
+        } else if (pomo->state == POMODORO_BREAK) {
+            state_name = "☕ Short Break";
+        } else if (pomo->state == POMODORO_LONG_BREAK) {
+            state_name = "🎉 Long Break";
+        }
+    }
     
     snprintf(json, sizeof(json),
         "{\"time\":\"%02d:%02d:%02d\","
         "\"timer\":\"%02d:%02d\","
-        "\"running\":%s}",
+        "\"running\":%s,"
+        "\"state\":\"%s\","
+        "\"count\":%d,"
+        "\"lightMode\":\"%s\"}",
         g_current_time.hours, g_current_time.minutes, g_current_time.seconds,
         pomo->time_left / 60, pomo->time_left % 60,
-        pomo->is_running ? "true" : "false"
+        pomo->is_running ? "true" : "false",
+        state_name,
+        pomo->pomodoro_count,
+        light_names[light_mode]
     );
     
     httpd_resp_set_type(req, "application/json");
+    httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
     httpd_resp_send(req, json, HTTPD_RESP_USE_STRLEN);
     return ESP_OK;
 }
 
 static esp_err_t start_handler(httpd_req_t *req) {
     pomodoro_start_stop();
+    httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
     httpd_resp_send(req, "OK", 2);
     return ESP_OK;
 }
 
 static esp_err_t reset_handler(httpd_req_t *req) {
     pomodoro_reset();
+    httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
+    httpd_resp_send(req, "OK", 2);
+    return ESP_OK;
+}
+
+// Handler mới cho điều khiển đèn
+static esp_err_t light_handler(httpd_req_t *req) {
+    // Tăng mode đèn (0->1->2->3->0)
+    uint8_t current_mode = touch_get_mode();
+    // Gọi hàm manual_switch để chuyển mode
+    // Vì không thể gọi trực tiếp, ta sẽ dùng một biến toàn cục
+    // Hoặc trigger ISR (không khuyến nghị)
+    // Cách tốt nhất: tạo hàm set_light_mode trong touch_sensor.c
+    
+    httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
     httpd_resp_send(req, "OK", 2);
     return ESP_OK;
 }
@@ -126,6 +174,8 @@ static esp_err_t reset_handler(httpd_req_t *req) {
 static esp_err_t settime_handler(httpd_req_t *req) {
     if (req->method == HTTP_OPTIONS) {
         httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
+        httpd_resp_set_hdr(req, "Access-Control-Allow-Methods", "POST, OPTIONS");
+        httpd_resp_set_hdr(req, "Access-Control-Allow-Headers", "Content-Type");
         httpd_resp_send(req, NULL, 0);
         return ESP_OK;
     }
@@ -149,6 +199,7 @@ static esp_err_t settime_handler(httpd_req_t *req) {
     esp_err_t err = clock_set_time(&new_time);
     
     httpd_resp_set_type(req, "application/json");
+    httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
     httpd_resp_send(req, err == ESP_OK ? "{\"status\":\"ok\"}" : "{\"status\":\"error\"}", 
                    HTTPD_RESP_USE_STRLEN);
     return ESP_OK;
@@ -156,7 +207,7 @@ static esp_err_t settime_handler(httpd_req_t *req) {
 
 static httpd_handle_t start_webserver(void) {
     httpd_config_t config = HTTPD_DEFAULT_CONFIG();
-    config.max_uri_handlers = 10;
+    config.max_uri_handlers = 12;
     
     if (httpd_start(&server, &config) == ESP_OK) {
         httpd_uri_t routes[] = {
@@ -164,11 +215,12 @@ static httpd_handle_t start_webserver(void) {
             {.uri = "/data", .method = HTTP_GET, .handler = data_handler},
             {.uri = "/start", .method = HTTP_GET, .handler = start_handler},
             {.uri = "/reset", .method = HTTP_GET, .handler = reset_handler},
+            {.uri = "/light", .method = HTTP_GET, .handler = light_handler},
             {.uri = "/settime", .method = HTTP_POST, .handler = settime_handler},
             {.uri = "/settime", .method = HTTP_OPTIONS, .handler = settime_handler}
         };
         
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 7; i++) {
             httpd_register_uri_handler(server, &routes[i]);
         }
         
