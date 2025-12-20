@@ -44,9 +44,12 @@ class _PomodoroHomePageState extends State<PomodoroHomePage> with TickerProvider
   String pomodoroState = 'Ready to Work';
   String pomodoroEmoji = '💪';
   bool isRunning = false;
-  int pomodoroCount = 0;
   bool isConnected = false;
   String lightMode = 'Tắt';
+  
+  // Thời gian Pomodoro tùy chỉnh
+  int workDuration = 25;
+  int breakDuration = 5;
   
   Timer? _updateTimer;
   late AnimationController _pulseController;
@@ -122,8 +125,9 @@ class _PomodoroHomePageState extends State<PomodoroHomePage> with TickerProvider
           }
           
           isRunning = data['running'] ?? false;
-          pomodoroCount = data['count'] ?? 0;
           lightMode = data['lightMode'] ?? 'Tắt';
+          workDuration = data['workDuration'] ?? 25;
+          breakDuration = data['breakDuration'] ?? 5;
           isConnected = true;
         });
       }
@@ -220,6 +224,51 @@ class _PomodoroHomePageState extends State<PomodoroHomePage> with TickerProvider
       showError('Lỗi kết nối: ${e.message}');
     } catch (e) {
       showError('Không thể cập nhật thời gian');
+    }
+  }
+  
+  Future<void> setPomodoroSettings(int work, int brk) async {
+    try {
+      final body = json.encode({
+        'work': work,
+        'break': brk,
+        'longBreak': 15, // Giữ giá trị mặc định cho ESP32
+      });
+      
+      final response = await http.post(
+        Uri.parse('http://$esp32Ip/setpomodoro'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: body,
+      ).timeout(
+        const Duration(seconds: 5),
+        onTimeout: () {
+          throw TimeoutException('Request timeout');
+        },
+      );
+      
+      if (response.statusCode == 200) {
+        await Future.delayed(const Duration(milliseconds: 500));
+        await fetchData();
+        
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('✓ Đã cập nhật cài đặt Pomodoro'),
+              backgroundColor: Colors.green,
+              duration: Duration(seconds: 2),
+            ),
+          );
+        }
+      }
+    } on TimeoutException {
+      showError('Timeout: ESP32 không phản hồi');
+    } on http.ClientException catch (e) {
+      showError('Lỗi kết nối: ${e.message}');
+    } catch (e) {
+      showError('Không thể cập nhật cài đặt Pomodoro');
     }
   }
   
@@ -377,6 +426,108 @@ class _PomodoroHomePageState extends State<PomodoroHomePage> with TickerProvider
                   0,
                 );
                 setTime(dateTime);
+                Navigator.pop(context);
+              },
+              child: const Text('💾 Lưu'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+  
+  void showPomodoroSettingsDialog() async {
+    int tempWork = workDuration;
+    int tempBreak = breakDuration;
+    
+    await showDialog(
+      context: context,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setDialogState) => AlertDialog(
+          backgroundColor: const Color(0xFF16213e),
+          title: const Text('⏱️ Cài đặt Pomodoro'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                title: const Text('💪 Thời gian làm việc'),
+                subtitle: Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.remove, color: Colors.white),
+                      onPressed: () {
+                        if (tempWork > 1) {
+                          setDialogState(() {
+                            tempWork--;
+                          });
+                        }
+                      },
+                    ),
+                    Expanded(
+                      child: Text(
+                        '$tempWork phút',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 24, color: Colors.white),
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.add, color: Colors.white),
+                      onPressed: () {
+                        if (tempWork < 90) {
+                          setDialogState(() {
+                            tempWork++;
+                          });
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              const Divider(color: Colors.white24),
+              ListTile(
+                title: const Text('☕ Thời gian nghỉ'),
+                subtitle: Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.remove, color: Colors.white),
+                      onPressed: () {
+                        if (tempBreak > 1) {
+                          setDialogState(() {
+                            tempBreak--;
+                          });
+                        }
+                      },
+                    ),
+                    Expanded(
+                      child: Text(
+                        '$tempBreak phút',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 24, color: Colors.white),
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.add, color: Colors.white),
+                      onPressed: () {
+                        if (tempBreak < 30) {
+                          setDialogState(() {
+                            tempBreak++;
+                          });
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Hủy'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                setPomodoroSettings(tempWork, tempBreak);
                 Navigator.pop(context);
               },
               child: const Text('💾 Lưu'),
@@ -740,35 +891,7 @@ class _PomodoroHomePageState extends State<PomodoroHomePage> with TickerProvider
           
           const SizedBox(height: 30),
           
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(25),
-              border: Border.all(
-                color: Colors.white.withOpacity(0.2),
-                width: 1,
-              ),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Text(
-                  '🅿️',
-                  style: TextStyle(fontSize: 24),
-                ),
-                const SizedBox(width: 12),
-                Text(
-                  'Pomodoros: $pomodoroCount',
-                  style: const TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
+          // Pomodoro Count đã bị xóa
         ],
       ),
     );
@@ -871,15 +994,27 @@ class _PomodoroHomePageState extends State<PomodoroHomePage> with TickerProvider
             const SizedBox(width: 15),
             Expanded(
               child: _buildGradientButton(
-                icon: Icons.schedule,
-                label: 'Set Time',
+                icon: Icons.timer_outlined,
+                label: 'Pomodoro',
                 gradient: const LinearGradient(
-                  colors: [Color(0xFF3498db), Color(0xFF2980b9)],
+                  colors: [Color(0xFF8e24aa), Color(0xFF6a1b9a)],
                 ),
-                onPressed: isConnected ? showSetTimeDialog : null,
+                onPressed: isConnected ? showPomodoroSettingsDialog : null,
               ),
             ),
           ],
+        ),
+        const SizedBox(height: 15),
+        SizedBox(
+          width: double.infinity,
+          child: _buildGradientButton(
+            icon: Icons.schedule,
+            label: 'Cài đặt thời gian',
+            gradient: const LinearGradient(
+              colors: [Color(0xFF3498db), Color(0xFF2980b9)],
+            ),
+            onPressed: isConnected ? showSetTimeDialog : null,
+          ),
         ),
       ],
     );
