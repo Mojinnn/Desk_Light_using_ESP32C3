@@ -90,12 +90,18 @@ class _PomodoroHomePageState extends State<PomodoroHomePage> with TickerProvider
   
   Future<void> fetchData() async {
     try {
+      print('Đang kết nối tới: http://$esp32Ip/data'); // Debug log
+      
       final response = await http.get(
         Uri.parse('http://$esp32Ip/data'),
-      ).timeout(const Duration(seconds: 3));
+      ).timeout(const Duration(seconds: 5)); // Tăng timeout lên 5s
+      
+      print('Response status: ${response.statusCode}'); // Debug log
       
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
+        print('Data received: $data'); // Debug log
+        
         setState(() {
           currentTime = data['time'] ?? '--:--:--';
           pomodoroTimer = data['timer'] ?? '25:00';
@@ -121,7 +127,18 @@ class _PomodoroHomePageState extends State<PomodoroHomePage> with TickerProvider
           isConnected = true;
         });
       }
+    } on TimeoutException catch (e) {
+      print('Timeout error: $e');
+      setState(() {
+        isConnected = false;
+      });
+    } on http.ClientException catch (e) {
+      print('Client error: $e');
+      setState(() {
+        isConnected = false;
+      });
     } catch (e) {
+      print('Error: $e');
       setState(() {
         isConnected = false;
       });
@@ -226,14 +243,33 @@ class _PomodoroHomePageState extends State<PomodoroHomePage> with TickerProvider
       builder: (context) => AlertDialog(
         backgroundColor: const Color(0xFF16213e),
         title: const Text('Cài đặt địa chỉ IP ESP32'),
-        content: TextField(
-          controller: controller,
-          decoration: const InputDecoration(
-            hintText: '192.168.1.100',
-            labelText: 'Địa chỉ IP',
-            border: OutlineInputBorder(),
-          ),
-          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: controller,
+              decoration: const InputDecoration(
+                hintText: '192.168.1.100',
+                labelText: 'Địa chỉ IP',
+                border: OutlineInputBorder(),
+                helperText: 'Ví dụ: 192.168.1.100',
+              ),
+              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              'IP hiện tại: $esp32Ip',
+              style: const TextStyle(color: Colors.white70, fontSize: 12),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              isConnected ? '✓ Đang kết nối' : '✗ Chưa kết nối',
+              style: TextStyle(
+                color: isConnected ? Colors.green : Colors.red,
+                fontSize: 12,
+              ),
+            ),
+          ],
         ),
         actions: [
           TextButton(
@@ -241,14 +277,28 @@ class _PomodoroHomePageState extends State<PomodoroHomePage> with TickerProvider
             child: const Text('Hủy'),
           ),
           ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
               setState(() {
-                esp32Ip = controller.text;
+                esp32Ip = controller.text.trim();
               });
               Navigator.pop(context);
-              fetchData();
+              // Test kết nối ngay
+              await Future.delayed(const Duration(milliseconds: 100));
+              await fetchData();
+              
+              if (!isConnected) {
+                showError('Không thể kết nối tới $esp32Ip');
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('✓ Kết nối thành công!'),
+                    backgroundColor: Colors.green,
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+              }
             },
-            child: const Text('Lưu'),
+            child: const Text('Lưu & Kết nối'),
           ),
         ],
       ),

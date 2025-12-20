@@ -1,8 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+      <!-- Thêm các permissions này -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    
     <application
-        android:label="esp_32_app"
+        android:label="Pomodoro Timer"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true">
+        <!-- QUAN TRỌNG: android:usesCleartextTraffic="true" cho phép HTTP -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
