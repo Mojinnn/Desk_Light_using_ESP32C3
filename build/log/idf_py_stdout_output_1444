@@ -1,0 +1,325 @@
+ESP-ROM:esp32c3-api1-20210207
+Build:Feb  7 2021
+rst:0x1 (POWERON),boot:0xc (SPI_FAST_FLASH_BOOT)
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fcd5820,len:0x1738
+load:0x403cc710,len:0xb9c
+load:0x403ce710,len:0x2e4c
+entry 0x403cc71a
+[0;32mI (30) boot: ESP-IDF v5.3.1-dirty 2nd stage bootloader[0m
+[0;32mI (30) boot: compile time Dec 12 2025 15:11:34[0m
+[0;32mI (30) boot: chip revision: v0.3[0m
+[0;32mI (34) boot.esp32c3: SPI Speed      : 80MHz[0m
+[0;32mI (39) boot.esp32c3: SPI Mode       : DIO[0m
+[0;32mI (43) boot.esp32c3: SPI Flash Size : 2MB[0m
+[0;32mI (48) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (57) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (64) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (72) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (79) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (87) boot: End of partition table[0m
+[0;32mI (91) esp_image: segment 0: paddr=00010020 vaddr=3c0b0020 size=27178h (160120) map[0m
+[0;32mI (124) esp_image: segment 1: paddr=000371a0 vaddr=3fc97400 size=03290h ( 12944) load[0m
+[0;32mI (127) esp_image: segment 2: paddr=0003a438 vaddr=40380000 size=05be0h ( 23520) load[0m
+[0;32mI (134) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=a970ch (694028) map[0m
+[0;32mI (247) esp_image: segment 4: paddr=000e9734 vaddr=40385be0 size=1175ch ( 71516) load[0m
+[0;32mI (268) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (268) boot: Disabling RNG early entropy source...[0m
+[0;32mI (280) cpu_start: Unicore app[0m
+[0;32mI (288) cpu_start: Pro cpu start user code[0m
+[0;32mI (288) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (288) app_init: Application information:[0m
+[0;32mI (291) app_init: Project name:     MCU_final_project[0m
+[0;32mI (297) app_init: App version:      10b87e0-dirty[0m
+[0;32mI (302) app_init: Compile time:     Dec 20 2025 16:26:15[0m
+[0;32mI (308) app_init: ELF file SHA256:  1c8efed14...[0m
+[0;32mI (314) app_init: ESP-IDF:          v5.3.1-dirty[0m
+[0;32mI (319) efuse_init: Min chip rev:     v0.3[0m
+[0;32mI (324) efuse_init: Max chip rev:     v1.99 [0m
+[0;32mI (329) efuse_init: Chip rev:         v0.3[0m
+[0;32mI (333) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (341) heap_init: At 3FC9EE70 len 00021190 (132 KiB): RAM[0m
+[0;32mI (347) heap_init: At 3FCC0000 len 0001C710 (113 KiB): Retention RAM[0m
+[0;32mI (354) heap_init: At 3FCDC710 len 00002950 (10 KiB): Retention RAM[0m
+[0;32mI (361) heap_init: At 50000200 len 00001DE8 (7 KiB): RTCRAM[0m
+[0;32mI (368) spi_flash: detected chip: generic[0m
+[0;32mI (372) spi_flash: flash io: dio[0m
+[0;33mW (375) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;33mW (389) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;32mI (399) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (406) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (413) main_task: Started on CPU0[0m
+[0;32mI (413) main_task: Calling app_main()[0m
+[0;32mI (413) MAIN: ========================================[0m
+[0;32mI (423) MAIN:   ESP32-C3 Pomodoro Timer - Modular[0m
+[0;32mI (423) MAIN: ========================================[0m
+[0;32mI (443) gpio: GPIO[8]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (443) gpio: GPIO[1]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:2 [0m
+[0;32mI (453) gpio: GPIO[0]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:2 [0m
+[0;31mE (463) gpio: gpio_install_isr_service(502): GPIO isr service already installed[0m
+[0;32mI (473) RTC: I2C initialized for DS3231[0m
+[0;32mI (473) gpio: GPIO[4]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (483) gpio: GPIO[10]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (713) DISPLAY: Display initialized[0m
+[0;32mI (713) pp: pp rom version: 9387209[0m
+[0;32mI (713) net80211: net80211 rom version: 9387209[0m
+[0;32mI (723) wifi:wifi driver task: 3fca862c, prio:23, stack:6656, core=0[0m
+[0;32mI (723) wifi:wifi firmware version: ccaebfa[0m
+[0;32mI (723) wifi:wifi certification version: v7.0[0m
+[0;32mI (723) wifi:config NVS flash: enabled[0m
+[0;32mI (733) wifi:config nano formating: disabled[0m
+[0;32mI (733) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (743) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (743) wifi:Init management short buffer num: 32[0m
+[0;32mI (743) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (753) wifi:Init static tx FG buffer num: 2[0m
+[0;32mI (753) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (763) wifi:Init static rx buffer num: 10[0m
+[0;32mI (763) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (763) wifi_init: rx ba win: 6[0m
+[0;32mI (773) wifi_init: accept mbox: 6[0m
+[0;32mI (773) wifi_init: tcpip mbox: 32[0m
+[0;32mI (783) wifi_init: udp mbox: 6[0m
+[0;32mI (783) wifi_init: tcp mbox: 6[0m
+[0;32mI (783) wifi_init: tcp tx win: 5760[0m
+[0;32mI (793) wifi_init: tcp rx win: 5760[0m
+[0;32mI (793) wifi_init: tcp mss: 1440[0m
+[0;32mI (803) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (803) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (813) phy_init: phy_version 1180,01f2a49,Jun  4 2024,16:34:25[0m
+[0;32mI (853) wifi:mode : sta (84:f7:03:0a:92:9c)[0m
+[0;32mI (853) wifi:enable tsf[0m
+[0;32mI (853) WIFI_MGR: WiFi initialized[0m
+[0;32mI (853) SWITCH MODE: Mode: 0[0m
+[0;32mI (853) DISPLAY: Waiting for time sync... (1/30)[0m
+[0;32mI (853) wifi:new:<9,0>, old:<1,0>, ap:<255,255>, sta:<9,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (863) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (873) DISPLAY: Display task started[0m
+[0;32mI (873) DISPLAY: Pomodoro Reset[0m
+[0;32mI (873) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (883) MAIN: System started successfully![0m
+[0;32mI (883) main_task: Returned from app_main()[0m
+[0;32mI (883) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (893) wifi:<ba-add>idx:0 (ifx:0, 24:0b:2a:32:4e:b1), tid:5, ssn:0, winSize:64[0m
+[0;32mI (993) wifi:connected with TTHL&TT-DHBK, aid = 1, channel 9, BW20, bssid = 24:0b:2a:32:4e:b1[0m
+[0;32mI (993) wifi:security: WPA2-PSK, phy: bgn, rssi: -44[0m
+[0;32mI (993) wifi:pm start, type: 1[0m
+
+[0;32mI (1003) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (1003) wifi:set rx beacon pti, rx_bcn_pti: 0, bcn_timeout: 25000, mt_pti: 0, mt_time: 10000[0m
+[0;32mI (1013) wifi:<ba-add>idx:1 (ifx:0, 24:0b:2a:32:4e:b1), tid:0, ssn:2, winSize:64[0m
+[0;32mI (1073) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (1873) DISPLAY: Waiting for time sync... (2/30)[0m
+[0;32mI (2023) esp_netif_handlers: sta ip: 192.168.1.4, mask: 255.255.255.0, gw: 192.168.1.1[0m
+[0;32mI (2023) WIFI_MGR: Got IP: 192.168.1.4[0m
+[0;32mI (2023) WIFI_MGR: Web server started[0m
+[0;32mI (2873) DISPLAY: Waiting for time sync... (3/30)[0m
+[0;32mI (3873) DISPLAY: Waiting for time sync... (4/30)[0m
+[0;32mI (4873) DISPLAY: Waiting for time sync... (5/30)[0m
+[0;32mI (5873) DISPLAY: Waiting for time sync... (6/30)[0m
+[0;32mI (5953) WIFI_MGR: Waiting for NTP time sync...[0m
+[0;32mI (5963) RTC: Time set: 18:10:46 20/12/2025[0m
+[0;32mI (5963) WIFI_MGR: ✓ Time synced from NTP![0m
+[0;32mI (34543) SWITCH MODE: Mode: 1[0m
+[0;32mI (35113) SWITCH MODE: Mode: 2[0m
+[0;32mI (35633) SWITCH MODE: Mode: 3[0m
+[0;32mI (36113) SWITCH MODE: Mode: 0[0m
+[0;32mI (42423) DISPLAY: Pomodoro Started[0m
+[0;32mI (42433) DISPLAY: Pomodoro Reset[0m
+[0;32mI (52173) SWITCH MODE: Mode: 1[0m
+[0;32mI (59893) SWITCH MODE: Mode: 2[0m
+[0;32mI (60583) SWITCH MODE: Mode: 3[0m
+[0;32mI (61383) SWITCH MODE: Mode: 0[0m
+[0;32mI (61983) SWITCH MODE: Mode: 1[0m
+[0;32mI (63023) SWITCH MODE: Mode: 2[0m
+[0;32mI (66173) SWITCH MODE: Mode: 3[0m
+[0;32mI (66573) SWITCH MODE: Mode: 0[0m
+[0;32mI (67333) SWITCH MODE: Mode: 1[0m
+[0;32mI (67813) SWITCH MODE: Mode: 2[0m
+[0;32mI (72253) SWITCH MODE: Mode: 3[0m
+[0;32mI (72423) SWITCH MODE: Mode: 0[0m
+[0;32mI (73083) SWITCH MODE: Mode: 1[0m
+[0;32mI (73173) SWITCH MODE: Mode: 2[0m
+[0;32mI (73503) SWITCH MODE: Mode: 3[0m
+[0;32mI (75103) SWITCH MODE: Mode: 0[0m
+[0;32mI (75973) SWITCH MODE: Mode: 1[0m
+[0;32mI (76533) SWITCH MODE: Mode: 2[0m
+[0;32mI (76683) SWITCH MODE: Mode: 3[0m
+[0;32mI (131903) SWITCH MODE: Mode: 0[0m
+[0;32mI (136953) SWITCH MODE: Mode: 1[0m
+[0;32mI (137603) SWITCH MODE: Mode: 2[0m
+[0;32mI (139173) SWITCH MODE: Mode: 3[0m
+[0;32mI (149903) SWITCH MODE: Mode: 0[0m
+[0;32mI (150543) SWITCH MODE: Mode: 1[0m
+[0;32mI (150623) SWITCH MODE: Mode: 2[0m
+[0;32mI (151543) SWITCH MODE: Mode: 3[0m
+[0;32mI (152483) SWITCH MODE: Mode: 0[0m
+[0;32mI (152733) SWITCH MODE: Mode: 1[0m
+[0;32mI (152833) SWITCH MODE: Mode: 2[0m
+[0;32mI (160403) SWITCH MODE: Mode: 3[0m
+[0;32mI (162303) SWITCH MODE: Mode: 0[0m
+[0;32mI (164553) SWITCH MODE: Mode: 1[0m
+[0;32mI (165113) SWITCH MODE: Mode: 2[0m
+[0;32mI (167483) SWITCH MODE: Mode: 3[0m
+[0;32mI (284183) SWITCH MODE: Mode: 0[0m
+[0;32mI (285263) SWITCH MODE: Mode: 1[0m
+[0;32mI (285843) SWITCH MODE: Mode: 2[0m
+[0;32mI (291063) SWITCH MODE: Mode: 3[0m
+[0;32mI (291353) SWITCH MODE: Mode: 0[0m
+[0;32mI (296493) DISPLAY: Pomodoro Started[0m
+[0;32mI (298053) SWITCH MODE: Mode: 1[0m
+[0;32mI (298513) SWITCH MODE: Mode: 2[0m
+[0;32mI (300713) SWITCH MODE: Mode: 3[0m
+[0;32mI (305173) SWITCH MODE: Mode: 0[0m
+[0;32mI (307033) SWITCH MODE: Mode: 1[0m
+[0;32mI (312513) SWITCH MODE: Mode: 2[0m
+[0;32mI (316123) SWITCH MODE: Mode: 3[0m
+[0;32mI (319313) SWITCH MODE: Mode: 0[0m
+[0;32mI (325623) SWITCH MODE: Mode: 1[0m
+[0;32mI (330813) SWITCH MODE: Mode: 2[0m
+[0;32mI (331273) SWITCH MODE: Mode: 3[0m
+[0;32mI (334483) SWITCH MODE: Mode: 0[0m
+[0;32mI (335943) SWITCH MODE: Mode: 1[0m
+[0;32mI (342063) SWITCH MODE: Mode: 2[0m
+[0;32mI (343203) SWITCH MODE: Mode: 3[0m
+[0;32mI (344963) SWITCH MODE: Mode: 0[0m
+[0;32mI (345393) SWITCH MODE: Mode: 1[0m
+[0;32mI (347343) SWITCH MODE: Mode: 2[0m
+[0;32mI (349143) SWITCH MODE: Mode: 3[0m
+[0;32mI (351553) SWITCH MODE: Mode: 0[0m
+[0;32mI (351623) SWITCH MODE: Mode: 1[0m
+[0;32mI (351843) SWITCH MODE: Mode: 2[0m
+[0;32mI (352123) SWITCH MODE: Mode: 3[0m
+[0;32mI (352223) SWITCH MODE: Mode: 0[0m
+[0;32mI (352603) SWITCH MODE: Mode: 1[0m
+[0;32mI (353583) SWITCH MODE: Mode: 2[0m
+[0;32mI (354393) SWITCH MODE: Mode: 3[0m
+[0;32mI (354453) SWITCH MODE: Mode: 0[0m
+[0;32mI (354513) SWITCH MODE: Mode: 1[0m
+[0;32mI (354603) SWITCH MODE: Mode: 2[0m
+[0;32mI (354923) SWITCH MODE: Mode: 3[0m
+[0;32mI (355003) SWITCH MODE: Mode: 0[0m
+[0;32mI (356133) SWITCH MODE: Mode: 1[0m
+[0;32mI (360953) SWITCH MODE: Mode: 2[0m
+[0;32mI (361713) SWITCH MODE: Mode: 3[0m
+[0;32mI (362873) SWITCH MODE: Mode: 0[0m
+[0;32mI (365083) SWITCH MODE: Mode: 1[0m
+[0;32mI (365813) SWITCH MODE: Mode: 2[0m
+[0;32mI (372473) SWITCH MODE: Mode: 3[0m
+[0;32mI (372923) SWITCH MODE: Mode: 0[0m
+[0;32mI (373303) SWITCH MODE: Mode: 1[0m
+[0;32mI (373673) SWITCH MODE: Mode: 2[0m
+[0;32mI (374033) SWITCH MODE: Mode: 3[0m
+[0;32mI (383813) SWITCH MODE: Mode: 0[0m
+[0;32mI (384123) SWITCH MODE: Mode: 1[0m
+[0;32mI (384273) SWITCH MODE: Mode: 2[0m
+[0;32mI (384453) SWITCH MODE: Mode: 3[0m
+[0;32mI (384623) SWITCH MODE: Mode: 0[0m
+[0;32mI (385043) SWITCH MODE: Mode: 1[0m
+[0;32mI (385483) SWITCH MODE: Mode: 2[0m
+[0;32mI (385773) SWITCH MODE: Mode: 3[0m
+[0;32mI (386113) SWITCH MODE: Mode: 0[0m
+[0;32mI (472643) SWITCH MODE: Mode: 1[0m
+[0;32mI (474123) SWITCH MODE: Mode: 2[0m
+[0;32mI (474923) SWITCH MODE: Mode: 3[0m
+[0;32mI (475583) SWITCH MODE: Mode: 0[0m
+[0;32mI (485723) SWITCH MODE: Mode: 1[0m
+[0;32mI (486703) SWITCH MODE: Mode: 2[0m
+[0;32mI (488013) SWITCH MODE: Mode: 3[0m
+[0;32mI (488633) SWITCH MODE: Mode: 0[0m
+[0;32mI (490913) DISPLAY: Pomodoro Reset[0m
+[0;32mI (509623) SWITCH MODE: Mode: 1[0m
+[0;32mI (511683) SWITCH MODE: Mode: 2[0m
+[0;32mI (512423) SWITCH MODE: Mode: 3[0m
+[0;32mI (513163) SWITCH MODE: Mode: 0[0m
+[0;32mI (513793) SWITCH MODE: Mode: 1[0m
+[0;32mI (514363) SWITCH MODE: Mode: 2[0m
+[0;32mI (515043) SWITCH MODE: Mode: 3[0m
+[0;32mI (515523) SWITCH MODE: Mode: 0[0m
+[0;32mI (589763) DISPLAY: Pomodoro Started[0m
+[0;32mI (614263) DISPLAY: Pomodoro Reset[0m
+[0;32mI (645523) DISPLAY: Pomodoro Started[0m
+[0;32mI (647323) DISPLAY: Pomodoro Reset[0m
+[0;32mI (656893) DISPLAY: Pomodoro Started[0m
+[0;32mI (658473) DISPLAY: Pomodoro Reset[0m
+[0;32mI (673113) DISPLAY: Pomodoro Started[0m
+[0;32mI (673123) DISPLAY: Pomodoro Reset[0m
+[0;32mI (690003) DISPLAY: Pomodoro Started[0m
+[0;32mI (697483) DISPLAY: Pomodoro Started[0m
+[0;32mI (713253) DISPLAY: Pomodoro Started[0m
+[0;32mI (728333) DISPLAY: Pomodoro Reset[0m
+[0;32mI (758513) DISPLAY: Pomodoro Started[0m
+[0;32mI (766293) DISPLAY: Pomodoro Started[0m
+[0;32mI (822513) DISPLAY: Pomodoro Started[0m
+[0;32mI (835423) DISPLAY: Pomodoro Started[0m
+[0;32mI (839133) DISPLAY: Pomodoro Reset[0m
+[0;32mI (861623) DISPLAY: Pomodoro durations updated: Work=3000s, Break=600s[0m
+[0;32mI (861623) WIFI_MGR: Pomodoro settings: Work=50m, Break=10m[0m
+[0;32mI (869723) DISPLAY: Pomodoro Started[0m
+[0;32mI (871303) DISPLAY: Pomodoro durations updated: Work=1500s, Break=300s[0m
+[0;32mI (871303) WIFI_MGR: Pomodoro settings: Work=25m, Break=5m[0m
+[0;32mI (874363) DISPLAY: Pomodoro Reset[0m
+[0;32mI (981473) SWITCH MODE: Mode: 1[0m
+[0;32mI (982323) SWITCH MODE: Mode: 2[0m
+[0;32mI (983133) SWITCH MODE: Mode: 3[0m
+[0;32mI (998633) SWITCH MODE: Mode: 0[0m
+[0;32mI (1012333) DISPLAY: Pomodoro Started[0m
+[0;32mI (1012343) DISPLAY: Pomodoro Reset[0m
+[0;32mI (1035633) DISPLAY: Pomodoro Started[0m
+[0;32mI (1039133) DISPLAY: Pomodoro Reset[0m
+[0;32mI (1090803) SWITCH MODE: Mode: 1[0m
+[0;32mI (1096943) SWITCH MODE: Mode: 2[0m
+[0;32mI (1097293) SWITCH MODE: Mode: 3[0m
+[0;32mI (1097663) SWITCH MODE: Mode: 0[0m
+[0;32mI (1252923) SWITCH MODE: Mode: 1[0m
+[0;32mI (1253703) SWITCH MODE: Mode: 2[0m
+[0;32mI (1255743) SWITCH MODE: Mode: 3[0m
+[0;32mI (1260003) SWITCH MODE: Mode: 0[0m
+[0;32mI (1260513) SWITCH MODE: Mode: 1[0m
+[0;32mI (1261083) SWITCH MODE: Mode: 2[0m
+[0;32mI (1262643) SWITCH MODE: Mode: 3[0m
+[0;32mI (1263183) SWITCH MODE: Mode: 0[0m
+[0;32mI (1325553) SWITCH MODE: Mode: 1[0m
+[0;32mI (1328013) SWITCH MODE: Mode: 2[0m
+[0;32mI (1329483) SWITCH MODE: Mode: 3[0m
+[0;32mI (1331033) SWITCH MODE: Mode: 0[0m
+[0;32mI (1344373) DISPLAY: Pomodoro Started[0m
+[0;32mI (1344383) DISPLAY: Pomodoro Reset[0m
+[0;32mI (1428383) SWITCH MODE: Mode: 1[0m
+[0;32mI (1432803) SWITCH MODE: Mode: 2[0m
+[0;32mI (1434543) SWITCH MODE: Mode: 3[0m
+[0;32mI (1436063) SWITCH MODE: Mode: 0[0m
+[0;32mI (1447553) DISPLAY: Pomodoro Started[0m
+[0;32mI (1464713) SWITCH MODE: Mode: 1[0m
+[0;32mI (1466463) SWITCH MODE: Mode: 2[0m
+[0;32mI (1467173) SWITCH MODE: Mode: 3[0m
+[0;32mI (1467893) SWITCH MODE: Mode: 0[0m
+[0;32mI (1506723) DISPLAY: Pomodoro Reset[0m
+[0;32mI (1513603) DISPLAY: Pomodoro Started[0m
+[0;32mI (1513613) DISPLAY: Pomodoro Reset[0m
+[0;32mI (1573603) SWITCH MODE: Mode: 1[0m
+[0;32mI (1576893) SWITCH MODE: Mode: 2[0m
+[0;32mI (1579173) SWITCH MODE: Mode: 3[0m
+[0;32mI (1581213) SWITCH MODE: Mode: 0[0m
+[0;32mI (1593113) DISPLAY: Pomodoro Started[0m
+[0;32mI (1607573) SWITCH MODE: Mode: 1[0m
+[0;32mI (1608693) SWITCH MODE: Mode: 2[0m
+[0;32mI (1609723) SWITCH MODE: Mode: 3[0m
+[0;32mI (1610973) SWITCH MODE: Mode: 0[0m
+[0;32mI (1623643) DISPLAY: Pomodoro durations updated: Work=1800s, Break=420s[0m
+[0;32mI (1623643) WIFI_MGR: Pomodoro settings: Work=30m, Break=7m[0m
+[0;32mI (1626503) DISPLAY: Pomodoro Reset[0m
+[0;33mW (1649233) httpd_uri: httpd_uri: URI '/settime' not found[0m
+[0;33mW (1649233) httpd_txrx: httpd_resp_send_err: 404 Not Found - Nothing matches the given URI[0m
+[0;32mI (1663843) DISPLAY: Pomodoro Started[0m
+[0;33mW (1682723) httpd_uri: httpd_uri: URI '/settime' not found[0m
+[0;33mW (1682723) httpd_txrx: httpd_resp_send_err: 404 Not Found - Nothing matches the given URI[0m
+[0;32mI (1687533) DISPLAY: Pomodoro Reset[0m
+[0;33mW (1694813) httpd_uri: httpd_uri: URI '/settime' not found[0m
+[0;33mW (1694813) httpd_txrx: httpd_resp_send_err: 404 Not Found - Nothing matches the given URI[0m
+[0;33mW (1720713) httpd_uri: httpd_uri: URI '/settime' not found[0m
+[0;33mW (1720713) httpd_txrx: httpd_resp_send_err: 404 Not Found - Nothing matches the given URI[0m
+[0;33mW (1796693) httpd_uri: httpd_uri: URI '/settime' not found[0m
+[0;33mW (1796693) httpd_txrx: httpd_resp_send_err: 404 Not Found - Nothing matches the given URI[0m

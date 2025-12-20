@@ -140,7 +140,7 @@
             
 //             if (show_time) {
 //                 display_time_only(&g_current_time);
-//                 // display_pomodoro(&pomodoro);
+//                 display_pomodoro(&pomodoro);
 //             } else {
 //                 display_date_only(&g_current_time);
 //             }
@@ -173,9 +173,16 @@ rtc_time_t g_current_time;
 static pomodoro_t pomodoro = {
     .state = POMODORO_WORK,
     .is_running = false,
+    .is_break = false,
     .time_left = POMODORO_WORK_DURATION,
-    .pomodoro_count = 0
 };
+
+static pomodoro_config_t pomo_config = {
+    .work_duration = POMODORO_WORK_DURATION,
+    .break_duration = POMODORO_BREAK_DURATION,
+};
+
+
 
 // ===== INITIALIZATION =====
 void display_init(void) {
@@ -187,14 +194,14 @@ void display_init(void) {
 // ===== DISPLAY FUNCTIONS =====
 void display_time_only(rtc_time_t *time) {
     int add = 15;
-    oled_draw_large_char(2, add, time->hours / 10 + '0');
-    oled_draw_large_char(2, 16 + add, time->hours % 10 + '0');
-    oled_draw_large_char(2, 28 + add, ':');
-    oled_draw_large_char(2, 40 + add, time->minutes / 10 + '0');
-    oled_draw_large_char(2, 52 + add, time->minutes % 10 + '0');
-    oled_draw_large_char(2, 64 + add, ':');
-    oled_draw_large_char(2, 76 + add, time->seconds / 10 + '0');
-    oled_draw_large_char(2, 88 + add, time->seconds % 10 + '0');
+    oled_draw_large_char(3, add, time->hours / 10 + '0');
+    oled_draw_large_char(3, 16 + add, time->hours % 10 + '0');
+    oled_draw_large_char(3, 28 + add, ':');
+    oled_draw_large_char(3, 40 + add, time->minutes / 10 + '0');
+    oled_draw_large_char(3, 52 + add, time->minutes % 10 + '0');
+    oled_draw_large_char(3, 64 + add, ':');
+    oled_draw_large_char(3, 76 + add, time->seconds / 10 + '0');
+    oled_draw_large_char(3, 88 + add, time->seconds % 10 + '0');
 }
 
 void display_date_only(rtc_time_t *time) {
@@ -219,63 +226,14 @@ void display_pomodoro_fullscreen(pomodoro_t *pomo) {
     uint8_t seconds = pomo->time_left % 60;
     
     // Hiển thị thời gian lớn ở giữa màn hình
-    int offset = 15;  // Căn giữa màn hình
+    int offset = 25;  // Căn giữa màn hình
     
     // Dòng thời gian (MM:SS) - dùng large char
-    oled_draw_large_char(2, offset, minutes / 10 + '0');
-    oled_draw_large_char(2, 16 + offset, minutes % 10 + '0');
-    oled_draw_large_char(2, 28 + offset, ':');
-    oled_draw_large_char(2, 40 + offset, seconds / 10 + '0');
-    oled_draw_large_char(2, 52 + offset, seconds % 10 + '0');
-    
-    // Hiển thị trạng thái (WORK/BREAK) ở dòng dưới
-    int state_offset = 35;
-    oled_write_cmd(0xB0 + 5);  // Dòng 5
-    oled_write_cmd(0x00 + (state_offset & 0x0F));
-    oled_write_cmd(0x10 + (state_offset >> 4));
-    
-    if (pomo->state == POMODORO_WORK) {
-        // Chữ "WORK"
-        uint8_t work_text[] = {
-            0x3F, 0x40, 0x38, 0x40, 0x3F, 0x00,  // W
-            0x3E, 0x41, 0x41, 0x41, 0x3E, 0x00,  // O
-            0x7F, 0x09, 0x19, 0x29, 0x46, 0x00,  // R
-            0x46, 0x29, 0x19, 0x09, 0x7F, 0x00   // K
-        };
-        oled_write_data(work_text, sizeof(work_text));
-    } else if (pomo->state == POMODORO_BREAK) {
-        // Chữ "BREAK"
-        uint8_t break_text[] = {
-            0x7F, 0x49, 0x49, 0x49, 0x36, 0x00,  // B
-            0x7F, 0x09, 0x19, 0x29, 0x46, 0x00,  // R
-            0x7F, 0x49, 0x49, 0x49, 0x41, 0x00,  // E
-            0x7C, 0x12, 0x11, 0x12, 0x7C, 0x00,  // A
-            0x46, 0x29, 0x19, 0x09, 0x7F, 0x00   // K
-        };
-        oled_write_data(break_text, sizeof(break_text));
-    } else if (pomo->state == POMODORO_LONG_BREAK) {
-        // Chữ "LONG"
-        uint8_t long_text[] = {
-            0x7F, 0x40, 0x40, 0x40, 0x40, 0x00,  // L
-            0x3E, 0x41, 0x41, 0x41, 0x3E, 0x00,  // O
-            0x7F, 0x04, 0x08, 0x10, 0x7F, 0x00,  // N
-            0x3E, 0x41, 0x49, 0x4D, 0x2E, 0x00   // G
-        };
-        oled_write_data(long_text, sizeof(long_text));
-    }
-    
-    // Hiển thị số Pomodoro đã hoàn thành
-    if (pomo->pomodoro_count < 10) {
-        int count_offset = 95;
-        oled_write_cmd(0xB0 + 5);
-        oled_write_cmd(0x00 + (count_offset & 0x0F));
-        oled_write_cmd(0x10 + (count_offset >> 4));
-        
-        uint8_t hash[] = {0x14, 0x7F, 0x14, 0x7F, 0x14, 0x00};  // # symbol
-        oled_write_data(hash, 6);
-        
-        oled_draw_small_char(5, count_offset + 8, pomo->pomodoro_count + '0');
-    }
+    oled_draw_large_char(3, offset, minutes / 10 + '0');
+    oled_draw_large_char(3, 16 + offset, minutes % 10 + '0');
+    oled_draw_large_char(3, 28 + offset, ':');
+    oled_draw_large_char(3, 40 + offset, seconds / 10 + '0');
+    oled_draw_large_char(3, 52 + offset, seconds % 10 + '0');
 }
 
 // ===== POMODORO CONTROL =====
@@ -283,21 +241,49 @@ pomodoro_t* get_pomodoro(void) {
     return &pomodoro;
 }
 
+pomodoro_config_t* pomodoro_get_config(void) {
+    return &pomo_config;
+}
+
+esp_err_t pomodoro_set_durations(uint16_t work, uint16_t brk) {
+    if (work == 0 || brk == 0) {
+        return ESP_ERR_INVALID_ARG;
+    }
+    
+    pomo_config.work_duration = work;
+    pomo_config.break_duration = brk;
+    
+    if (!pomodoro.is_running && !pomodoro.is_break) {
+        if (pomodoro.state == POMODORO_WORK) {
+            pomodoro.time_left = work;
+        } else if (pomodoro.state == POMODORO_BREAK) {
+            pomodoro.time_left = brk;
+        }
+    }
+    
+    ESP_LOGI(TAG, "Pomodoro durations updated: Work=%ds, Break=%ds", work, brk);
+    return ESP_OK;
+}
+
+
+
 void pomodoro_start_stop(void) {
-    pomodoro.is_running = !pomodoro.is_running;
+    pomodoro.is_running = true;
+    pomodoro.is_break = false;
     buzzer_beep_5s();
     ESP_LOGI(TAG, "Pomodoro Started");
 }
 
 void pomodoro_reset(void) {
     pomodoro.is_running = false;
+    pomodoro.is_break = false;
     pomodoro.state = POMODORO_WORK;
-    pomodoro.time_left = POMODORO_WORK_DURATION;
+    pomodoro.time_left = pomo_config.work_duration;
     ESP_LOGI(TAG, "Pomodoro Reset");
 }
 
 void pomodoro_tick(void) {
-    if (!pomodoro.is_running) return;
+    if (!pomodoro.is_running && !pomodoro.is_break) return;
     
     if (pomodoro.time_left > 0) {
         pomodoro.time_left--;
@@ -305,20 +291,16 @@ void pomodoro_tick(void) {
         buzzer_beep_5s();
         
         if (pomodoro.state == POMODORO_WORK) {
-            pomodoro.pomodoro_count++;
-            
-            if (pomodoro.pomodoro_count % 4 == 0) {
-                pomodoro.state = POMODORO_LONG_BREAK;
-                pomodoro.time_left = POMODORO_LONG_BREAK_DURATION;
-            } else {
-                pomodoro.state = POMODORO_BREAK;
-                pomodoro.time_left = POMODORO_BREAK_DURATION;
-            }
+            pomodoro.state = POMODORO_BREAK;
+            pomodoro.time_left = pomo_config.break_duration;
+            pomodoro.is_break = true;
+            pomodoro.is_running = false;
         } else {
             pomodoro.state = POMODORO_WORK;
-            pomodoro.time_left = POMODORO_WORK_DURATION;
+            pomodoro.time_left = pomo_config.work_duration;
+            pomodoro.is_break = false;
+            pomodoro.is_running = true;
         }
-        pomodoro.is_running = false;
     }
 }
 
@@ -338,13 +320,11 @@ static void display_task(void *pvParameter) {
     while (1) {
         oled_clear();
         
-        // Kiểm tra nếu Pomodoro đang chạy
-        if (pomodoro.is_running) {
-            // CHẾ ĐỘ POMODORO: Chỉ hiển thị đếm ngược
-            display_pomodoro_fullscreen(&pomodoro);
-        } else {
-            // CHẾ ĐỘ BÌNH THƯỜNG: Hiển thị giờ/ngày
-            if (clock_get_time(&g_current_time) == ESP_OK) {
+        if (clock_get_time(&g_current_time) == ESP_OK) {
+            if (pomodoro.is_running || pomodoro.is_break ) {
+                display_pomodoro_fullscreen(&pomodoro);
+            } else {
+            
                 if (show_time) {
                     display_time_only(&g_current_time);
                 } else {
@@ -352,7 +332,7 @@ static void display_task(void *pvParameter) {
                 }
                 
                 counter++;
-                if (counter >= 3) {  // Chuyển đổi sau 3 giây
+                if (counter >= 3) { 
                     counter = 0;
                     show_time = !show_time;
                 }

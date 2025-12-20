@@ -76,7 +76,6 @@
 // ===== POMODORO SETTINGS =====
 #define POMODORO_WORK_DURATION          (25 * 60)
 #define POMODORO_BREAK_DURATION         (5 * 60)
-#define POMODORO_LONG_BREAK_DURATION    (15 * 60)
 
 
 // ===== BUZZER SETTING =====

@@ -1,0 +1,125 @@
+[0;33m--- Warning: GDB cannot open serial ports accessed as COMx[0m
+[0;33m--- Using \\.\COM4 instead...[0m
+[0;33m--- esp-idf-monitor 1.5.0 on \\.\COM4 115200[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H[0m
+[0;33m--- Stack dump detected[0m
+[0;33m--- 0x40058e94: strlen in ROM
+0x4203c1da: httpd_register_uri_handler at D:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_uri.c:139
+[0m
+[0;33m--- 0x4005890e: memset in ROM
+0x40392c3e: _malloc_r at D:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/heap.c:43
+[0m
+[0;33m--- 0x40380001: _vector_table at D:/Espressif/frameworks/esp-idf-v5.3.1/components/riscv/vectors_intc.S:54
+[0m
+[0;33m--- Warning: Failed to run gdb_panic_server.py script: Command '['riscv32-esp-elf-gdb', '--batch', '-n', 'D:\\Espressif\\frameworks\\esp-idf-v5.3.1\\WorkSpace\\MCU_final_project\\build\\MCU_final_project.elf', '-ex', 'target remote | "D:\\Espressif\\python_env\\idf5.3_py3.11_env\\Scripts\\python.exe" -m esp_idf_panic_decoder --target esp32c3 "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\tmp40o0anap"', '-ex', 'bt']' returned non-zero exit status 1.
+b"\r\nwarning: could not convert 'main' from the host encoding (CP1252) to UTF-32.\r\nThis normally should not happen, please file a bug report.\r\nerror starting child process 'D:\\Espressif\\python_env\\idf5.3_py3.11_env\\Scripts\\python.exe -m esp_idf_panic_decoder --target esp32c3 C:\\Users\\Lenovo\\AppData\\Local\\Temp\\tmp40o0anap': CreateProcess: No such file or directory\r\nNo stack.\r\n"
+
+[0m
+[0;33m--- 0x403807da: esp_restart_noos at D:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32c3/system_internal.c:110
+[0m
+[0;33m--- Stack dump detected[0m
+[0;33m--- 0x40058e94: strlen in ROM
+0x4203c1da: httpd_register_uri_handler at D:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_uri.c:139
+[0m
+[0;33m--- 0x4005890e: memset in ROM
+0x40392c3e: _malloc_r at D:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/heap.c:43
+[0m
+[0;33m--- 0x40380001: _vector_table at D:/Espressif/frameworks/esp-idf-v5.3.1/components/riscv/vectors_intc.S:54
+[0m
+[0;33m--- Warning: Failed to run gdb_panic_server.py script: Command '['riscv32-esp-elf-gdb', '--batch', '-n', 'D:\\Espressif\\frameworks\\esp-idf-v5.3.1\\WorkSpace\\MCU_final_project\\build\\MCU_final_project.elf', '-ex', 'target remote | "D:\\Espressif\\python_env\\idf5.3_py3.11_env\\Scripts\\python.exe" -m esp_idf_panic_decoder --target esp32c3 "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\tmpl95fkrki"', '-ex', 'bt']' returned non-zero exit status 1.
+b"\r\nwarning: could not convert 'main' from the host encoding (CP1252) to UTF-32.\r\nThis normally should not happen, please file a bug report.\r\nerror starting child process 'D:\\Espressif\\python_env\\idf5.3_py3.11_env\\Scripts\\python.exe -m esp_idf_panic_decoder --target esp32c3 C:\\Users\\Lenovo\\AppData\\Local\\Temp\\tmpl95fkrki': CreateProcess: No such file or directory\r\nNo stack.\r\n"
+
+[0m
+[0;33m--- 0x403807da: esp_restart_noos at D:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32c3/system_internal.c:110
+[0m
+[0;33m--- Stack dump detected[0m
+[0;33m--- 0x40058e94: strlen in ROM
+0x4203c1da: httpd_register_uri_handler at D:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_uri.c:139
+[0m
+[0;33m--- 0x4005890e: memset in ROM
+0x40392c3e: _malloc_r at D:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/heap.c:43
+[0m
+[0;33m--- 0x40380001: _vector_table at D:/Espressif/frameworks/esp-idf-v5.3.1/components/riscv/vectors_intc.S:54
+[0m
+[0;33m--- Warning: Failed to run gdb_panic_server.py script: Command '['riscv32-esp-elf-gdb', '--batch', '-n', 'D:\\Espressif\\frameworks\\esp-idf-v5.3.1\\WorkSpace\\MCU_final_project\\build\\MCU_final_project.elf', '-ex', 'target remote | "D:\\Espressif\\python_env\\idf5.3_py3.11_env\\Scripts\\python.exe" -m esp_idf_panic_decoder --target esp32c3 "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\tmppovsypwl"', '-ex', 'bt']' returned non-zero exit status 1.
+b"\r\nwarning: could not convert 'main' from the host encoding (CP1252) to UTF-32.\r\nThis normally should not happen, please file a bug report.\r\nerror starting child process 'D:\\Espressif\\python_env\\idf5.3_py3.11_env\\Scripts\\python.exe -m esp_idf_panic_decoder --target esp32c3 C:\\Users\\Lenovo\\AppData\\Local\\Temp\\tmppovsypwl': CreateProcess: No such file or directory\r\nNo stack.\r\n"
+
+[0m
+[0;33m--- 0x403807da: esp_restart_noos at D:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32c3/system_internal.c:110
+[0m
+[0;33m--- Stack dump detected[0m
+[0;33m--- 0x40058e94: strlen in ROM
+0x4203c1da: httpd_register_uri_handler at D:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_uri.c:139
+[0m
+[0;33m--- 0x4005890e: memset in ROM
+0x40392c3e: _malloc_r at D:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/heap.c:43
+[0m
+[0;33m--- 0x40380001: _vector_table at D:/Espressif/frameworks/esp-idf-v5.3.1/components/riscv/vectors_intc.S:54
+[0m
+[0;33m--- Warning: Failed to run gdb_panic_server.py script: Command '['riscv32-esp-elf-gdb', '--batch', '-n', 'D:\\Espressif\\frameworks\\esp-idf-v5.3.1\\WorkSpace\\MCU_final_project\\build\\MCU_final_project.elf', '-ex', 'target remote | "D:\\Espressif\\python_env\\idf5.3_py3.11_env\\Scripts\\python.exe" -m esp_idf_panic_decoder --target esp32c3 "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\tmphsxup51d"', '-ex', 'bt']' returned non-zero exit status 1.
+b"\r\nwarning: could not convert 'main' from the host encoding (CP1252) to UTF-32.\r\nThis normally should not happen, please file a bug report.\r\nerror starting child process 'D:\\Espressif\\python_env\\idf5.3_py3.11_env\\Scripts\\python.exe -m esp_idf_panic_decoder --target esp32c3 C:\\Users\\Lenovo\\AppData\\Local\\Temp\\tmphsxup51d': CreateProcess: No such file or directory\r\nNo stack.\r\n"
+
+[0m
+[0;33m--- 0x403807da: esp_restart_noos at D:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32c3/system_internal.c:110
+[0m
+[0;33m--- Stack dump detected[0m
+[0;33m--- 0x40058e94: strlen in ROM
+0x4203c1da: httpd_register_uri_handler at D:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_uri.c:139
+[0m
+[0;33m--- 0x4005890e: memset in ROM
+0x40392c3e: _malloc_r at D:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/heap.c:43
+[0m
+[0;33m--- 0x40380001: _vector_table at D:/Espressif/frameworks/esp-idf-v5.3.1/components/riscv/vectors_intc.S:54
+[0m
+[0;33m--- Warning: Failed to run gdb_panic_server.py script: Command '['riscv32-esp-elf-gdb', '--batch', '-n', 'D:\\Espressif\\frameworks\\esp-idf-v5.3.1\\WorkSpace\\MCU_final_project\\build\\MCU_final_project.elf', '-ex', 'target remote | "D:\\Espressif\\python_env\\idf5.3_py3.11_env\\Scripts\\python.exe" -m esp_idf_panic_decoder --target esp32c3 "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\tmpqk99b1dd"', '-ex', 'bt']' returned non-zero exit status 1.
+b"\r\nwarning: could not convert 'main' from the host encoding (CP1252) to UTF-32.\r\nThis normally should not happen, please file a bug report.\r\nerror starting child process 'D:\\Espressif\\python_env\\idf5.3_py3.11_env\\Scripts\\python.exe -m esp_idf_panic_decoder --target esp32c3 C:\\Users\\Lenovo\\AppData\\Local\\Temp\\tmpqk99b1dd': CreateProcess: No such file or directory\r\nNo stack.\r\n"
+
+[0m
+[0;33m--- 0x403807da: esp_restart_noos at D:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32c3/system_internal.c:110
+[0m
+[0;33m--- Stack dump detected[0m
+[0;33m--- 0x40058e94: strlen in ROM
+0x4203c1da: httpd_register_uri_handler at D:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_uri.c:139
+[0m
+[0;33m--- 0x4005890e: memset in ROM
+0x40392c3e: _malloc_r at D:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/heap.c:43
+[0m
+[0;33m--- 0x40380001: _vector_table at D:/Espressif/frameworks/esp-idf-v5.3.1/components/riscv/vectors_intc.S:54
+[0m
+[0;33m--- Warning: Failed to run gdb_panic_server.py script: Command '['riscv32-esp-elf-gdb', '--batch', '-n', 'D:\\Espressif\\frameworks\\esp-idf-v5.3.1\\WorkSpace\\MCU_final_project\\build\\MCU_final_project.elf', '-ex', 'target remote | "D:\\Espressif\\python_env\\idf5.3_py3.11_env\\Scripts\\python.exe" -m esp_idf_panic_decoder --target esp32c3 "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\tmpwj32qzpa"', '-ex', 'bt']' returned non-zero exit status 1.
+b"\r\nwarning: could not convert 'main' from the host encoding (CP1252) to UTF-32.\r\nThis normally should not happen, please file a bug report.\r\nerror starting child process 'D:\\Espressif\\python_env\\idf5.3_py3.11_env\\Scripts\\python.exe -m esp_idf_panic_decoder --target esp32c3 C:\\Users\\Lenovo\\AppData\\Local\\Temp\\tmpwj32qzpa': CreateProcess: No such file or directory\r\nNo stack.\r\n"
+
+[0m
+[0;33m--- 0x403807da: esp_restart_noos at D:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32c3/system_internal.c:110
+[0m
+[0;33m--- Stack dump detected[0m
+[0;33m--- 0x40058e94: strlen in ROM
+0x4203c1da: httpd_register_uri_handler at D:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_uri.c:139
+[0m
+[0;33m--- 0x4005890e: memset in ROM
+0x40392c3e: _malloc_r at D:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/heap.c:43
+[0m
+[0;33m--- 0x40380001: _vector_table at D:/Espressif/frameworks/esp-idf-v5.3.1/components/riscv/vectors_intc.S:54
+[0m
+[0;33m--- Warning: Failed to run gdb_panic_server.py script: Command '['riscv32-esp-elf-gdb', '--batch', '-n', 'D:\\Espressif\\frameworks\\esp-idf-v5.3.1\\WorkSpace\\MCU_final_project\\build\\MCU_final_project.elf', '-ex', 'target remote | "D:\\Espressif\\python_env\\idf5.3_py3.11_env\\Scripts\\python.exe" -m esp_idf_panic_decoder --target esp32c3 "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\tmpf6nsz24p"', '-ex', 'bt']' returned non-zero exit status 1.
+b"\r\nwarning: could not convert 'main' from the host encoding (CP1252) to UTF-32.\r\nThis normally should not happen, please file a bug report.\r\nerror starting child process 'D:\\Espressif\\python_env\\idf5.3_py3.11_env\\Scripts\\python.exe -m esp_idf_panic_decoder --target esp32c3 C:\\Users\\Lenovo\\AppData\\Local\\Temp\\tmpf6nsz24p': CreateProcess: No such file or directory\r\nNo stack.\r\n"
+
+[0m
+[0;33m--- 0x403807da: esp_restart_noos at D:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32c3/system_internal.c:110
+[0m
+[0;33m--- Stack dump detected[0m
+[0;33m--- 0x40058e94: strlen in ROM
+0x4203c1da: httpd_register_uri_handler at D:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_uri.c:139
+[0m
+[0;33m--- 0x4005890e: memset in ROM
+0x40392c3e: _malloc_r at D:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/heap.c:43
+[0m
+[0;33m--- 0x40380001: _vector_table at D:/Espressif/frameworks/esp-idf-v5.3.1/components/riscv/vectors_intc.S:54
+[0m
+[0;33m--- Warning: Failed to run gdb_panic_server.py script: Command '['riscv32-esp-elf-gdb', '--batch', '-n', 'D:\\Espressif\\frameworks\\esp-idf-v5.3.1\\WorkSpace\\MCU_final_project\\build\\MCU_final_project.elf', '-ex', 'target remote | "D:\\Espressif\\python_env\\idf5.3_py3.11_env\\Scripts\\python.exe" -m esp_idf_panic_decoder --target esp32c3 "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\tmpixxpb1b6"', '-ex', 'bt']' returned non-zero exit status 1.
+b"\r\nwarning: could not convert 'main' from the host encoding (CP1252) to UTF-32.\r\nThis normally should not happen, please file a bug report.\r\nerror starting child process 'D:\\Espressif\\python_env\\idf5.3_py3.11_env\\Scripts\\python.exe -m esp_idf_panic_decoder --target esp32c3 C:\\Users\\Lenovo\\AppData\\Local\\Temp\\tmpixxpb1b6': CreateProcess: No such file or directory\r\nNo stack.\r\n"
+
+[0m
+[0;33m--- 0x403807da: esp_restart_noos at D:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32c3/system_internal.c:110
+[0m
+[0m
