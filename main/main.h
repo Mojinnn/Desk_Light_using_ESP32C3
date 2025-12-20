@@ -24,7 +24,7 @@
 #include "esp_http_server.h"
 #include "esp_netif.h"
 #include "esp_sntp.h"
-#include <ledc.h>
+#include <driver/ledc.h>
 
 
 // ===== Config WiFi =====

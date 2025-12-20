@@ -51,3 +51,31 @@ void buzzer_alert(void) {
         vTaskDelay(200 / portTICK_PERIOD_MS);
     }
 }
+
+void buzzer_beep_5s (void) {
+    uint32_t total_duration = 5000;
+    uint32_t beep_on = 150;
+    uint32_t beep_short_pause = 100;  // Khoảng cách giữa 2 tiếng tít
+    uint32_t beep_long_pause = 400;   // Khoảng cách giữa các cặp
+    uint32_t frequency = 2500;
+    
+    uint32_t elapsed = 0;
+    
+    while (elapsed < total_duration) {
+        // Tít đầu tiên
+        buzzer_on(frequency);
+        vTaskDelay(beep_on / portTICK_PERIOD_MS);
+        buzzer_off();
+        vTaskDelay(beep_short_pause / portTICK_PERIOD_MS);
+        
+        // Tít thứ hai
+        buzzer_on(frequency);
+        vTaskDelay(beep_on / portTICK_PERIOD_MS);
+        buzzer_off();
+        vTaskDelay(beep_long_pause / portTICK_PERIOD_MS);
+        
+        elapsed += (beep_on * 2 + beep_short_pause + beep_long_pause);
+    }
+    
+    buzzer_off();
+}

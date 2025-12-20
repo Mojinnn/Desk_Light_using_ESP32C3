@@ -4,7 +4,8 @@
 #include "rtc.h"
 #include "display.h"
 #include "wifi_manager.h"
-#include "button.h"
+#include "buzzer.h"
+#include "change_pomo.h"
 
 static const char *TAG = "MAIN";
 
@@ -24,16 +25,18 @@ void app_main(void) {
     // Initialize hardware
     led_init();
     touch_init();
+    change_pomo_init();
+    buzzer_init();
     
     // Initialize all modules
     ESP_ERROR_CHECK(clock_init());
     display_init();
-    button_init();
     wifi_manager_init();
     
     // Create task
     manual_switch_start();
-    display_start_task();
+    display_start();
+    manual_pomo_start();
 
     
     ESP_LOGI(TAG, "System started successfully!");

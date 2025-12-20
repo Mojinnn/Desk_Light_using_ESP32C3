@@ -137,7 +137,7 @@ static void display_task(void *pvParameter) {
             
             if (show_time) {
                 display_time_only(&g_current_time);
-                display_pomodoro(&pomodoro);
+                // display_pomodoro(&pomodoro);
             } else {
                 display_date_only(&g_current_time);
             }
@@ -148,13 +148,15 @@ static void display_task(void *pvParameter) {
                 show_time = !show_time;
             }
         }
+
+        if (pomo->state)
         
         pomodoro_tick();
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
 }
 
-void display_start_task(void) {
+void display_start(void) {
     xTaskCreate(display_task, "display_task", 4096, NULL, 5, NULL);
     ESP_LOGI(TAG, "Display task started");
 }

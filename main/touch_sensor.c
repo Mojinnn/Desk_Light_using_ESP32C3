@@ -18,6 +18,17 @@ static void IRAM_ATTR touch_isr_handler () {
     }
 }
 
+static void IRAM_ATTR pomo_isr_handler () {
+    uint32_t now = xTaskGetTickCountFromISR() * portTICK_PERIOD_MS;
+    if ((now - last_change) > DEBOUNCE_TIME_MS) {
+        pomo_state++;
+        if (pomo_state > 1) {
+            pomo_state = 0;
+        }
+        last_change = now;
+    }
+}
+
 void touch_init () {
     gpio_config_t io_touch = {
         .mode = GPIO_MODE_INPUT,
@@ -52,7 +63,7 @@ void change_pomo_init () {
     gpio_config(&io_change_pomo);
 
     gpio_install_isr_service(0);
-    gpio_isr_handler_add(CHANGE_POMO_PIN, touch_isr_handler, NULL);
+    gpio_isr_handler_add(CHANGE_POMO_PIN, pomo_isr_handler, NULL);
 }
 
 uint8_t pomo_get_state() {

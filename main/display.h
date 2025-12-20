@@ -11,7 +11,7 @@ extern rtc_time_t g_current_time;
 
 // ===== FUNCTION DECLARATIONS =====
 void display_init(void);
-void display_start_task(void);
+void display_start(void);
 void display_time_only(rtc_time_t *time);
 void display_date_only(rtc_time_t *time);
 void display_pomodoro(pomodoro_t *pomodoro);
