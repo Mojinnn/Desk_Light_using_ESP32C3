@@ -5,6 +5,7 @@
 #include "clock.h"
 #include "display.h"
 #include "oled.h"
+#include "touch_sensor.h"
 
 
 // ===== TIMEZONE CONFIGURATION =====

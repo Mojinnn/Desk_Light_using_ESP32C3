@@ -114,7 +114,7 @@ static esp_err_t data_handler(httpd_req_t *req) {
     const char* state_name = "Ready";
     if (pomo->is_running) {
         if (pomo->state == POMODORO_WORK) {
-            state_name = "💪 Work Time";
+            state_name = "    c Work Time";
         } else if (pomo->state == POMODORO_BREAK) {
             state_name = "☕ Short Break";
         } else if (pomo->state == POMODORO_LONG_BREAK) {
@@ -161,10 +161,8 @@ static esp_err_t reset_handler(httpd_req_t *req) {
 static esp_err_t light_handler(httpd_req_t *req) {
     // Tăng mode đèn (0->1->2->3->0)
     uint8_t current_mode = touch_get_mode();
-    // Gọi hàm manual_switch để chuyển mode
-    // Vì không thể gọi trực tiếp, ta sẽ dùng một biến toàn cục
-    // Hoặc trigger ISR (không khuyến nghị)
-    // Cách tốt nhất: tạo hàm set_light_mode trong touch_sensor.c
+    uint8_t next_mode = (current_mode + 1) > MODE ? 0 : (current_mode + 1);
+    touch_set_mode(next_mode);
     
     httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
     httpd_resp_send(req, "OK", 2);

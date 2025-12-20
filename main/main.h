@@ -24,6 +24,8 @@
 #include "esp_http_server.h"
 #include "esp_netif.h"
 #include "esp_sntp.h"
+#include <ledc.h>
+
 
 // ===== Config WiFi =====
 #define WIFI_SSID      "TTHL&TT-DHBK"
@@ -31,7 +33,7 @@
 
 #define LED_PIN             8
 #define LED_NUM             25
-#define BUTTON_PIN          0
+#define CHANGE_POMO_PIN     0
 #define TOUCH_PIN           1
 #define DEBOUNCE_TIME_MS    50
 
@@ -76,5 +78,14 @@
 #define POMODORO_BREAK_DURATION         (5 * 60)
 #define POMODORO_LONG_BREAK_DURATION    (15 * 60)
 
+
+// ===== BUZZER SETTING =====
+#define BUZZER_PIN          GPIO_NUM_9
+#define LEDC_TIMER          LEDC_TIMER_0
+#define LEDC_MODE           LEDC_LOW_SPEED_MODE
+#define LEDC_CHANNEL        LEDC_CHANNEL_0
+#define LEDC_DUTY_RES       LEDC_TIMER_13_BIT
+#define LEDC_DUTY           (4096)              // 50% duty cycle (8192 / 2)
+#define LEDC_FREQUENCY      (2000)              // Tần số 2kHz
 
 #endif
