@@ -28,8 +28,8 @@
 
 
 // Config WiFi
-#define WIFI_SSID      "TTHL&TT-DHBK"
-#define WIFI_PASS      "viettenbadualara"
+#define WIFI_SSID      "abcd"
+#define WIFI_PASS      "12345678"
 
 #define LED_PIN             GPIO_NUM_8
 #define LED_NUM             25

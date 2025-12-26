@@ -10,7 +10,7 @@ static const char *TAG = "MAIN";
 
 void app_main(void) {
     ESP_LOGI(TAG, "========================================");
-    ESP_LOGI(TAG, "  ESP32-C3 Desk Table");
+    ESP_LOGI(TAG, "  ESP32-C3 Desk Light");
     ESP_LOGI(TAG, "========================================");
     
     // Initialize NVS

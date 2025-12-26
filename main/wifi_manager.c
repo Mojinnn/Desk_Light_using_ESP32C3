@@ -60,90 +60,90 @@ static void initialize_sntp(void) {
 }
 
 // Web server
-static esp_err_t root_handler(httpd_req_t *req) {
-    extern rtc_time_t g_current_time;
+// static esp_err_t root_handler(httpd_req_t *req) {
+//     extern rtc_time_t g_current_time;
     
-    const char* html = 
-        "<!DOCTYPE html><html><head><meta charset='UTF-8'>"
-        "<meta name='viewport' content='width=device-width,initial-scale=1'>"
-        "<title>ESP32 Pomodoro Timer</title><style>"
-        "*{margin:0;padding:0;box-sizing:border-box}"
-        "body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);"
-        "color:#eee;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px}"
-        ".container{max-width:600px;width:100%;background:#16213e;padding:40px;border-radius:20px;"
-        "box-shadow:0 10px 40px rgba(0,0,0,0.5)}"
-        "h1{color:#e94560;margin-bottom:40px;font-size:2.5em;text-align:center}"
-        "h2{color:#e94560;margin:30px 0 20px;font-size:1.5em;text-align:center}"
-        ".time{font-size:72px;font-weight:bold;color:#e94560;text-align:center;margin:20px 0}"
-        ".btn{padding:18px 45px;font-size:18px;border:none;border-radius:12px;cursor:pointer;"
-        "margin:10px;background:linear-gradient(135deg,#27ae60 0%,#2ecc71 100%);color:white}"
-        ".light-btn{background:linear-gradient(135deg,#f39c12 0%,#e67e22 100%)}"
-        ".settings{background:#1a1a2e;padding:20px;border-radius:12px;margin:20px 0}"
-        ".setting-row{display:flex;justify-content:space-between;align-items:center;margin:15px 0}"
-        ".setting-row label{font-size:16px;color:#aaa}"
-        ".setting-row input{width:80px;padding:8px;font-size:16px;border:2px solid #e94560;"
-        "border-radius:8px;background:#16213e;color:#fff;text-align:center}"
-        ".save-btn{width:100%;padding:15px;font-size:18px;background:linear-gradient(135deg,#e74c3c 0%,#c0392b 100%);"
-        "color:white;border:none;border-radius:12px;cursor:pointer;margin-top:15px}"
-        ".info{text-align:center;margin-top:20px;color:#aaa}"
-        "</style></head><body><div class='container'>"
-        "<h1>⏰ Pomodoro Timer</h1>"
-        "<div class='time' id='time'>--:--:--</div>"
-        "<div class='time' id='timer'>25:00</div>"
-        "<div class='info' id='state'>Ready</div>"
-        "<div style='text-align:center'>"
-        "<button class='btn' onclick='fetch(\"/start\")'>▶️ Start/Stop</button>"
-        "<button class='btn' onclick='fetch(\"/reset\")'>🔄 Reset</button><br>"
-        "<button class='btn light-btn' onclick='fetch(\"/light\")'>💡 Đèn</button>"
-        "</div>"
-        "<div class='info' id='lightMode'>Đèn: Tắt</div>"
+//     const char* html = 
+//         "<!DOCTYPE html><html><head><meta charset='UTF-8'>"
+//         "<meta name='viewport' content='width=device-width,initial-scale=1'>"
+//         "<title>ESP32 Pomodoro Timer</title><style>"
+//         "*{margin:0;padding:0;box-sizing:border-box}"
+//         "body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);"
+//         "color:#eee;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px}"
+//         ".container{max-width:600px;width:100%;background:#16213e;padding:40px;border-radius:20px;"
+//         "box-shadow:0 10px 40px rgba(0,0,0,0.5)}"
+//         "h1{color:#e94560;margin-bottom:40px;font-size:2.5em;text-align:center}"
+//         "h2{color:#e94560;margin:30px 0 20px;font-size:1.5em;text-align:center}"
+//         ".time{font-size:72px;font-weight:bold;color:#e94560;text-align:center;margin:20px 0}"
+//         ".btn{padding:18px 45px;font-size:18px;border:none;border-radius:12px;cursor:pointer;"
+//         "margin:10px;background:linear-gradient(135deg,#27ae60 0%,#2ecc71 100%);color:white}"
+//         ".light-btn{background:linear-gradient(135deg,#f39c12 0%,#e67e22 100%)}"
+//         ".settings{background:#1a1a2e;padding:20px;border-radius:12px;margin:20px 0}"
+//         ".setting-row{display:flex;justify-content:space-between;align-items:center;margin:15px 0}"
+//         ".setting-row label{font-size:16px;color:#aaa}"
+//         ".setting-row input{width:80px;padding:8px;font-size:16px;border:2px solid #e94560;"
+//         "border-radius:8px;background:#16213e;color:#fff;text-align:center}"
+//         ".save-btn{width:100%;padding:15px;font-size:18px;background:linear-gradient(135deg,#e74c3c 0%,#c0392b 100%);"
+//         "color:white;border:none;border-radius:12px;cursor:pointer;margin-top:15px}"
+//         ".info{text-align:center;margin-top:20px;color:#aaa}"
+//         "</style></head><body><div class='container'>"
+//         "<h1> Pomodoro Timer</h1>"
+//         "<div class='time' id='time'>--:--:--</div>"
+//         "<div class='time' id='timer'>25:00</div>"
+//         "<div class='info' id='state'>Ready</div>"
+//         "<div style='text-align:center'>"
+//         "<button class='btn' onclick='fetch(\"/start\")'>Start/Stop</button>"
+//         "<button class='btn' onclick='fetch(\"/reset\")'>Reset</button><br>"
+//         "<button class='btn light-btn' onclick='fetch(\"/light\")'>Đèn</button>"
+//         "</div>"
+//         "<div class='info' id='lightMode'>Đèn: Tắt</div>"
         
-        "<h2>⚙️ Cài Đặt Thời Gian</h2>"
-        "<div class='settings'>"
-        "<div class='setting-row'>"
-        "<label>⏱️ Thời gian làm việc (phút):</label>"
-        "<input type='number' id='workTime' value='25' min='1' max='60'>"
-        "</div>"
-        "<div class='setting-row'>"
-        "<label>☕ Thời gian nghỉ ngắn (phút):</label>"
-        "<input type='number' id='breakTime' value='5' min='1' max='30'>"
-        "</div>"
-        "<div class='setting-row'>"
-        "<label>🌴 Thời gian nghỉ dài (phút):</label>"
-        "<input type='number' id='longBreakTime' value='15' min='1' max='60'>"
-        "</div>"
-        "<button class='save-btn' onclick='saveSettings()'>💾 Lưu Cài Đặt</button>"
-        "</div>"
+//         "<h2>Cài Đặt Thời Gian</h2>"
+//         "<div class='settings'>"
+//         "<div class='setting-row'>"
+//         "<label>Thời gian làm việc (phút):</label>"
+//         "<input type='number' id='workTime' value='25' min='1' max='60'>"
+//         "</div>"
+//         "<div class='setting-row'>"
+//         "<label>Thời gian nghỉ ngắn (phút):</label>"
+//         "<input type='number' id='breakTime' value='5' min='1' max='30'>"
+//         "</div>"
+//         "<div class='setting-row'>"
+//         "<label>Thời gian nghỉ dài (phút):</label>"
+//         "<input type='number' id='longBreakTime' value='15' min='1' max='60'>"
+//         "</div>"
+//         "<button class='save-btn' onclick='saveSettings()'>Lưu Cài Đặt</button>"
+//         "</div>"
         
-        "<script>"
-        "function saveSettings(){"
-        "const work=parseInt(document.getElementById('workTime').value);"
-        "const brk=parseInt(document.getElementById('breakTime').value);"
-        "const lng=parseInt(document.getElementById('longBreakTime').value);"
-        "fetch('/setpomodoro',{method:'POST',headers:{'Content-Type':'application/json'},"
-        "body:JSON.stringify({work:work,break:brk,longBreak:lng})})"
-        ".then(r=>r.json()).then(d=>{alert(d.status=='ok'?'✓ Đã lưu!':'✗ Lỗi!')});"
-        "}"
-        "function loadSettings(){"
-        "fetch('/getpomodoro').then(r=>r.json()).then(d=>{"
-        "document.getElementById('workTime').value=d.work;"
-        "document.getElementById('breakTime').value=d.break;"
-        "document.getElementById('longBreakTime').value=d.longBreak;"
-        "});"
-        "}"
-        "loadSettings();"
-        "setInterval(()=>{"
-        "fetch('/data').then(r=>r.json()).then(d=>{"
-        "document.getElementById('time').innerText=d.time;"
-        "document.getElementById('timer').innerText=d.timer;"
-        "document.getElementById('state').innerText=d.state;"
-        "document.getElementById('lightMode').innerText='Đèn: '+d.lightMode;"
-        "})},1000)"
-        "</script></div></body></html>";
+//         "<script>"
+//         "function saveSettings(){"
+//         "const work=parseInt(document.getElementById('workTime').value);"
+//         "const brk=parseInt(document.getElementById('breakTime').value);"
+//         "const lng=parseInt(document.getElementById('longBreakTime').value);"
+//         "fetch('/setpomodoro',{method:'POST',headers:{'Content-Type':'application/json'},"
+//         "body:JSON.stringify({work:work,break:brk,longBreak:lng})})"
+//         ".then(r=>r.json()).then(d=>{alert(d.status=='ok'?'✓ Đã lưu!':'✗ Lỗi!')});"
+//         "}"
+//         "function loadSettings(){"
+//         "fetch('/getpomodoro').then(r=>r.json()).then(d=>{"
+//         "document.getElementById('workTime').value=d.work;"
+//         "document.getElementById('breakTime').value=d.break;"
+//         "document.getElementById('longBreakTime').value=d.longBreak;"
+//         "});"
+//         "}"
+//         "loadSettings();"
+//         "setInterval(()=>{"
+//         "fetch('/data').then(r=>r.json()).then(d=>{"
+//         "document.getElementById('time').innerText=d.time;"
+//         "document.getElementById('timer').innerText=d.timer;"
+//         "document.getElementById('state').innerText=d.state;"
+//         "document.getElementById('lightMode').innerText='Đèn: '+d.lightMode;"
+//         "})},1000)"
+//         "</script></div></body></html>";
     
-    httpd_resp_send(req, html, HTTPD_RESP_USE_STRLEN);
-    return ESP_OK;
-}
+//     httpd_resp_send(req, html, HTTPD_RESP_USE_STRLEN);
+//     return ESP_OK;
+// }
 
 static esp_err_t data_handler(httpd_req_t *req) {
     extern rtc_time_t g_current_time;
@@ -156,9 +156,9 @@ static esp_err_t data_handler(httpd_req_t *req) {
     const char* state_name = "Ready";
     if (pomo->is_running) {
         if (pomo->state == POMODORO_WORK) {
-            state_name = "💼 Work Time";
+            state_name = "Work Time";
         } else if (pomo->state == POMODORO_BREAK) {
-            state_name = "☕ Short Break";
+            state_name = "Short Break";
         }
     }
     
@@ -235,18 +235,16 @@ static esp_err_t setpomodoro_handler(httpd_req_t *req) {
     if (ret <= 0) return ESP_FAIL;
     buf[ret] = '\0';
     
-    int work = 25, brk = 5, lng = 15;
+    int work = 25, brk = 5;
     char *ptr;
     
     if ((ptr = strstr(buf, "\"work\":"))) work = atoi(ptr + 7);
     if ((ptr = strstr(buf, "\"break\":"))) brk = atoi(ptr + 8);
-    if ((ptr = strstr(buf, "\"longBreak\":"))) lng = atoi(ptr + 12);
     
     if (work < 1 || work > 60) work = 25;
     if (brk < 1 || brk > 30) brk = 5;
-    if (lng < 1 || lng > 60) lng = 15;
     
-    esp_err_t err = pomodoro_set_durations(work * 60, brk * 600);
+    esp_err_t err = pomodoro_set_durations(work * 60, brk * 60);
     
     ESP_LOGI(TAG, "Pomodoro settings: Work=%dm, Break=%dm", work, brk);
     
@@ -296,13 +294,13 @@ static httpd_handle_t start_webserver(void) {
     config.max_uri_handlers = 15;
     
     if (httpd_start(&server, &config) == ESP_OK) {
-        httpd_uri_t root = {
-            .uri = "/",
-            .method = HTTP_GET,
-            .handler = root_handler,
-            .user_ctx = NULL
-        };
-        httpd_register_uri_handler(server, &root);
+        // httpd_uri_t root = {
+        //     .uri = "/",
+        //     .method = HTTP_GET,
+        //     .handler = root_handler,
+        //     .user_ctx = NULL
+        // };
+        // httpd_register_uri_handler(server, &root);
         
         httpd_uri_t data = {
             .uri = "/data",
@@ -383,8 +381,7 @@ static httpd_handle_t start_webserver(void) {
 }
 
 // Wifi event handler
-static void wifi_event_handler(void* arg, esp_event_base_t event_base, 
-                               int32_t event_id, void* event_data) {
+static void wifi_event_handler(void* arg, esp_event_base_t event_base, int32_t event_id, void* event_data) {
     if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START) {
         esp_wifi_connect();
     } else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) {
@@ -406,10 +403,8 @@ esp_err_t wifi_manager_init(void) {
     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
     ESP_ERROR_CHECK(esp_wifi_init(&cfg));
     
-    ESP_ERROR_CHECK(esp_event_handler_instance_register(WIFI_EVENT, ESP_EVENT_ANY_ID, 
-                    &wifi_event_handler, NULL, NULL));
-    ESP_ERROR_CHECK(esp_event_handler_instance_register(IP_EVENT, IP_EVENT_STA_GOT_IP, 
-                    &wifi_event_handler, NULL, NULL));
+    ESP_ERROR_CHECK(esp_event_handler_instance_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler, NULL, NULL));
+    ESP_ERROR_CHECK(esp_event_handler_instance_register(IP_EVENT, IP_EVENT_STA_GOT_IP, &wifi_event_handler, NULL, NULL));
     
     wifi_config_t wifi_config = {
         .sta = {
